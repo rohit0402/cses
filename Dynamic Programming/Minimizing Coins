@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+int mod=1e9+7;
+int main() {
+    int n,sum;
+    cin>>n>>sum;
+    vector<int>arr(n);
+    
+    for(int i=0;i<n;i++)cin>>arr[i];
+    int maxi=*max_element(arr.begin(),arr.end());
+    maxi=max(sum,maxi);
+    vector<int>dp(maxi+1,1e9);
+    dp[0]=1;
+    for(int i:arr)dp[i]=1;
+    for(int i=0;i<=sum;i++){
+        for(int c:arr){
+            if(i-c>=0){
+                dp[i]=min(dp[i],dp[i-c]+1);
+            }
+        }
+    }
+    if(dp[sum]==1e9)cout<<-1<<endl;
+    else cout<<dp[sum]<<endl;
+    return 0;
+}
